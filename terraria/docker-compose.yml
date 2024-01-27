@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  terraria:
+    image: ghcr.io/beardedio/terraria:latest
+    ports:
+      - 7777:7777
+    restart: unless-stopped
+    environment:
+      - world=Adorable_Ravine.wld
+    volumes:
+      - /home/wade/terraria/config:/config
+    tty: true
+    stdin_open: true
