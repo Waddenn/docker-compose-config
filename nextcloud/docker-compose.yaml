@@ -1,0 +1,50 @@
+version: '2.1'
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    env_file: .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config/nextcloud:/config
+      - ../nextcloud_data:/data
+    ports:
+      - 443:443
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    networks:
+      mynetwork:
+        ipv4_address: 172.18.0.2
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./config/mariadb:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    networks:
+      mynetwork:
+        ipv4_address: 172.18.0.3
