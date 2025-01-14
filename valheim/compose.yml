@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  valheim:
+    image: lloesche/valheim-server
+    container_name: valheim
+    restart: always
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
+      - WORLD_NAME=${WORLD_NAME}
+      - SERVER_PASS=${SERVER_PASS}
+      - SERVER_PUBLIC=${SERVER_PUBLIC}
+      - UPDATE_CRON=${UPDATE_CRON}
+      - BACKUPS=${BACKUPS}
+      - BACKUPS_CRON=${BACKUPS_CRON}
+      - BACKUPS_DIRECTORY=${BACKUPS_DIRECTORY}
+      - BACKUPS_MAX_AGE=${BACKUPS_MAX_AGE}
+      - BACKUPS_MAX_COUNT=${BACKUPS_MAX_COUNT}
+    volumes:
+      - ./config:/config
+    ports:
+      - 2456-2458:2456-2458/udp
