@@ -1,4 +1,4 @@
-version: '2.1'
+name: nextcloud
 
 networks:
   mynetwork:
@@ -48,3 +48,5 @@ services:
     networks:
       mynetwork:
         ipv4_address: 172.18.0.3
+
+

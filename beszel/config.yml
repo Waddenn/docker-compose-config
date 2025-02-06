@@ -1,0 +1,65 @@
+# Values for port and users are optional.
+# Defaults are port 45876 and the first created user.
+
+systems:
+  # Conteneurs créés par Terraform
+  - name: tailscale-subnet
+    host: 192.168.1.100
+    users:
+      - tom@patelas.com
+
+  - name: tailscale-exit-node
+    host: 192.168.1.101
+    users:
+      - tom@patelas.com
+
+  - name: beszel
+    host: 192.168.1.102
+    users:
+      - tom@patelas.com
+
+  - name: adguardhome
+    host: 192.168.1.103
+    users:
+      - tom@patelas.com
+
+  - name: myspeed
+    host: 192.168.1.104
+    users:
+      - tom@patelas.com
+
+  - name: caddy
+    host: 192.168.1.105
+    users:
+      - tom@patelas.com
+
+  - name: nextcloud
+    host: 192.168.1.106
+    users:
+      - tom@patelas.com
+
+  - name: homeassistant
+    host: 192.168.1.107
+    users:
+      - tom@patelas.com
+
+  - name: linkwarden
+    host: 192.168.1.108
+    users:
+      - tom@patelas.com
+
+  # Serveurs existants (non créés par Terraform)
+  - name: nuc-pve-1
+    host: 192.168.1.3
+    users:
+      - tom@patelas.com
+
+  - name: plexade
+    host: 192.168.1.2
+    users:
+      - tom@patelas.com
+
+  - name: proxade
+    host: 192.168.1.1
+    users:
+      - tom@patelas.com
