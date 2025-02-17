@@ -1,5 +1,7 @@
-name: homeassistant
+version: '3.8'
+
 services:
+  # Conteneur Home Assistant
   homeassistant:
     image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
@@ -10,7 +12,33 @@ services:
     volumes:
       - ./homeassistant/data:/config
     ports:
-      - 8123:8123 
+      - 8123:8123
     restart: unless-stopped
+    
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    restart: unless-stopped
+
+  # Conteneur Zigbee2MQTT
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    container_name: zigbee2mqtt
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      - 8080:8080
     devices:
       - /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_bac3096e933aef1193792b1455516304-if00-port0:/dev/ttyUSB0
+    restart: unless-stopped
+
+volumes:
+  mosquitto_data:
+  mosquitto_log:
